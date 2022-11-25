@@ -456,7 +456,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 dynamic_keymap_set_buffer(offset, size, &command_data[3]);
             break;
         }
-#if defined(VIAL_ENABLE) && !defined(VIAL_INSECURE)
+// change: _only_ allow it when insecure builds are made; faster rapid testing/prototyping
+#if defined(VIAL_ENABLE) && defined(VIAL_INSECURE)
         /* As VIA removed bootloader jump entirely, we shall only keep it for secure builds */
         case id_bootloader_jump: {
             /* Until keyboard is unlocked, don't allow jumping to bootloader */
