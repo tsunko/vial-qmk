@@ -20,7 +20,6 @@
 #define SR_CLR GP11
 
 // column definitions
-static const uint16_t col_values[MATRIX_COLS] = { 0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020, 0x0040, 0x0080, 0x0100, 0x0200, 0x0400, 0x0800, 0x1000, 0x2000, 0x4000 };
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 
 // raw, from pins, state values
@@ -59,7 +58,7 @@ __attribute__((weak)) void matrix_scan_user(void) {}
 void print_matrix(matrix_row_t m[]) {
 	print("0123456789ABCDEF\n");
 	for (int r=0; r < MATRIX_ROWS; r++) {
-		matrix_row_t row = m[r];
+		__attribute__((unused)) matrix_row_t row = m[r];
 		print_bin_reverse16(row);
 		print("\n");
 	}
@@ -117,7 +116,7 @@ static void shift_out(uint16_t value) {
 }
 
 static void select_col(uint8_t col) {
-	shift_out(col_values[col]);
+	shift_out((uint16_t)1 << col);
 }
 
 void matrix_read_rows_on_col(matrix_row_t immediate_matrix[], uint8_t current_col, matrix_row_t row_shifter) { 

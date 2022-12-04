@@ -2,7 +2,6 @@
 #include "quantum.h"
 #include "driver.h"
 
-
 uint16_t viewportWidth;
 uint16_t viewportHeight;
 bus_pins bus;
@@ -186,3 +185,8 @@ void disp_writeUSPrefix(void) {
     bus_write8(bus, 0x1F);
     bus_write8(bus, 0x28);
 }
+
+void _gu7000_init_pins(void);
+void _gu7000_write8(uint8_t value);
+void _gu7000_write16(uint16_t value);
+inline void _gu7000_writeUS(){ _gu7000_write8(0x1F); _gu7000_write8(0x24); }

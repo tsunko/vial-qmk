@@ -774,7 +774,7 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += hd44780.c
 endif
 
-VALID_OLED_DRIVER_TYPES := SSD1306 custom
+VALID_OLED_DRIVER_TYPES := SSD1306 GU7000 custom
 OLED_DRIVER ?= SSD1306
 ifeq ($(strip $(OLED_ENABLE)), yes)
     ifeq ($(filter $(OLED_DRIVER),$(VALID_OLED_DRIVER_TYPES)),)
@@ -787,6 +787,8 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
         ifeq ($(strip $(OLED_DRIVER)), SSD1306)
             SRC += ssd1306_sh1106.c
             QUANTUM_LIB_SRC += i2c_master.c
+        else ifeq ($(strip $(OLED_DRIVER)), GU7000)
+            SRC += gu7000.c
         endif
     endif
 endif
